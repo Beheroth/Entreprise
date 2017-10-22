@@ -48,6 +48,9 @@
     <Compile Include="File.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Consultant.cs" />
+    <Compile Include="Director.cs" />
+    <Compile Include="FinancialDirector.cs" />
+    <Compile Include="HumanResourcesDirector.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="Mission.cs" />
     <Compile Include="Person.cs" />
