@@ -12,6 +12,11 @@ namespace Entreprise
         {
             
         }
+
+        public override void GetPaid()
+        {
+            this.SetPersonnalaccount(this.GetPersonnalaccount() + 150000); 
+        }
     }
 
 }

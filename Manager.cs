@@ -8,12 +8,24 @@ namespace Entreprise
 {
     class Manager : Person
     {
-        private Dictionary<String, Consultant> Consultantdict;
-        private Dictionary<String, List<Mission>> Consultantagenda;
+        private Dictionary<String, Consultant> Consultants;
+        private Dictionary<String, List<Mission>> Consultantagenda;   //historique des missions
 
         public Manager(String firstname, String lastname, int personnalaccount) : base(firstname, lastname, personnalaccount)
         {
-            this.Consultantdict = new Dictionary<String, Consultant>();
+            this.Consultants = new Dictionary<String, Consultant>();
+        }
+
+        //Getter - Setter
+
+        public Dictionary<String, Consultant> GetConsultants()
+        {
+            return this.Consultants;
+        }
+
+        public Dictionary<String, List<Mission>> GetConsultantagenda()
+        {
+            return this.Consultantagenda;
         }
 
         // Method
@@ -22,22 +34,22 @@ namespace Entreprise
         {
             //Assert that consultant is not already contained in Consultantdict
             //BEWARE: Currently Shallow copy of consultant object=> can create problems!!!
-            this.Consultantdict.Add(consultant.GetFirstname() + consultant.GetLastname(), consultant);
+            this.Consultants.Add(consultant.GetFirstname() + consultant.GetLastname(), consultant);
         }
 
         public void RemoveConsultant(String id)
         {
             //assert that id exist before removing
-            if (this.Consultantdict.ContainsKey(id))
+            if (this.Consultants.ContainsKey(id))
             {
-                this.Consultantdict.Remove(id);
+                this.Consultants.Remove(id);
             }
 
         }
 
         public void LoadConsultantdict(Dictionary<String, Consultant> consultantdict)
         {
-            this.Consultantdict = consultantdict;
+            this.Consultants = consultantdict;
         }
 
         public void LoadConsultantagenda(Dictionary<String, List<Mission>> consultantagenda)
@@ -45,22 +57,12 @@ namespace Entreprise
             this.Consultantagenda = consultantagenda;
         }
 
-        private int NumberConsultant()
+        public int NumberConsultant()
         {
             //See how many Consultant are under the manager (getter)
-            return this.Consultantdict.Count;
+            return this.Consultants.Count;
         }
 
-        public override void GetPaid()
-        {
-            this.SetPersonnalaccount(this.GetPersonnalaccount() +
-                this.GetSalary());
-        }
-
-        public int GetSalary()
-        {
-            return 60000 + 500 * this.NumberConsultant();
-        }
         public void GenerateReport()
         {
             //TODO

@@ -27,6 +27,8 @@ namespace Entreprise
             this.Missionagenda = foo;
         }
 
+        //methods
+
         public void addMission(Mission Mission)
         {
             //assert that mission agenda is empty
@@ -40,14 +42,6 @@ namespace Entreprise
 
         private void work()
         {
-        }
-
-        public override void GetPaid()
-        {
-            //ToDo: Handle bonus bounty and manager-salary bonus
-            this.SetPersonnalaccount(this.GetPersonnalaccount() +
-                35000 + 250);
-
         }
 
     }

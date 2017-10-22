@@ -18,5 +18,19 @@ namespace Entreprise
             this.End = End;
             this.Client = Client;
         }
+
+        //Getter - Setter
+
+        public DateTime GetStart()
+        {
+            return this.Start;
+        }
+
+        //Methods 
+
+        public int GetDuration()
+        {
+            return this.End.Subtract(this.Start).Days;
+        }
     }
 }

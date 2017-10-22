@@ -13,6 +13,7 @@ namespace Entreprise
         private Dictionary<string, Manager> Managers;
         private Dictionary<string, Consultant> Consultants;
         private Dictionary<string, Client> Clients;
+        private DateTime Date;
 
         public Entreprise(string name)
         {
@@ -55,9 +56,58 @@ namespace Entreprise
 
         public void AddManager(Manager manager)
         {
-            this.Managers.Add(manager.ToString(), manager);
+            
         }
 
+        //method
+
+        public void PayAll()
+        {
+
+        }
+
+        public void PayDirectors()
+        {
+            foreach(Director director in this.Directors.Values)
+            {
+                director.GetPaid(150000);
+            }
+        }
+
+        public void PayManagers()
+        {
+            foreach(Manager manager in this.Managers.Values)
+            {
+                manager.GetPaid(60000 + 500 * manager.NumberConsultant());
+            }
+        }
+
+        public void PayConsultants()
+        {
+            foreach (Manager manager in this.Managers.Values)
+            {
+                foreach(Consultant consultant in manager.GetConsultants().Values)
+                {
+                    int salary = 35000;
+                    int managerbonus = 600 + 5 * manager.NumberConsultant();
+                    List<Mission> missionlist = manager.GetConsultantagenda()[consultant.ToString()];
+                    int bounty = 0;
+                    foreach(Mission mission in missionlist)
+                    {
+                        if(mission.GetStart().Year == this.Date.Year)
+                        {
+                            int penalty = -10 * mission.GetDuration();
+                            if(mission.GetDuration() > 25)
+                            {
+                                penalty = -250;
+                            }
+                            bounty += 250 - penalty;
+                        }
+                    }
+                    consultant.GetPaid(salary + managerbonus + bounty);
+                }
+            }
+        }
     }
 
 }

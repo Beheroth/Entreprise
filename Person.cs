@@ -47,8 +47,9 @@ namespace Entreprise
         }
         //methods
 
-        public virtual void GetPaid()
+        public virtual void GetPaid(int salary)
         {
+            this.SetPersonnalaccount(this.GetPersonnalaccount() + salary);
         }
 
 
