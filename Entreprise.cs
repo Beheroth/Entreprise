@@ -15,13 +15,14 @@ namespace Entreprise
         private Dictionary<string, Client> Clients;
         private DateTime Date;
 
-        public Entreprise(string name)
+        public Entreprise(string name, DateTime date)
         {
             this.Name = name;
             this.Directors = new Dictionary<string, Director>();
             this.Managers = new Dictionary<string, Manager>();
             this.Consultants = new Dictionary<string, Consultant>();
             this.Clients = new Dictionary<string, Client>();
+            this.Date = date;
         }
 
 
@@ -61,9 +62,14 @@ namespace Entreprise
 
         //method
 
+
+            //pay 
+
         public void PayAll()
         {
-
+            this.PayDirectors();
+            this.PayManagers();
+            this.PayConsultants();
         }
 
         public void PayDirectors()
@@ -106,6 +112,22 @@ namespace Entreprise
                     }
                     consultant.GetPaid(salary + managerbonus + bounty);
                 }
+            }
+        }
+        
+            //Loop
+
+        public void NextDay()
+        {
+            DateTime yesterday = this.Date;
+            this.Date.AddDays(1);
+            foreach(Consultant consultant in Consultants.Values)
+            {
+                consultant.CheckIsBusy(this.Date);
+            }
+            if(yesterday.Year != this.Date.Year)
+            {
+                this.PayAll();
             }
         }
     }

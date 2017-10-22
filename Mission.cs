@@ -26,6 +26,16 @@ namespace Entreprise
             return this.Start;
         }
 
+        public DateTime GetEnd()
+        {
+            return this.End;
+        }
+
+        public Client GetClient()
+        {
+            return this.Client;
+        }
+
         //Methods 
 
         public int GetDuration()

@@ -17,32 +17,43 @@ namespace Entreprise
 
         //getter-setter
 
-        public List<Mission> getMissionagenda()
+        public List<Mission> GetMissionagenda()
         {
             return this.Missionagenda;
         }
 
-        public void setMissionagenda(List<Mission> foo)
+        public void SetMissionagenda(List<Mission> foo)
         {
             this.Missionagenda = foo;
         }
 
         //methods
 
-        public void addMission(Mission Mission)
+        public void AddMission(Mission Mission)
         {
             //assert that mission agenda is empty
             this.Missionagenda.Add(Mission);
         }
 
-        public void clearMissionagenda()
+        public void ClearMissionagenda()
         {
             this.Missionagenda.Clear();
         }
 
-        private void work()
+        public void CheckIsBusy(DateTime date)
         {
+            bool ans = false;
+            if(this.Missionagenda.Count == 1)
+            {
+                if(this.Missionagenda[0].GetEnd().CompareTo(date) < 0)
+                {
+                    ans = true;
+                }
+            }
+            if(ans == false)
+            {
+                this.ClearMissionagenda();
+            }
         }
-
     }
 }

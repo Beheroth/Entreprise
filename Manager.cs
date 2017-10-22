@@ -32,7 +32,7 @@ namespace Entreprise
 
         public void AddConsultant(Consultant consultant)
         {
-            //Assert that consultant is not already contained in Consultantdict
+            //Assert that consultant is not already contained in Consultants Dictionary
             //BEWARE: Currently Shallow copy of consultant object=> can create problems!!!
             this.Consultants.Add(consultant.GetFirstname() + consultant.GetLastname(), consultant);
         }
@@ -47,9 +47,9 @@ namespace Entreprise
 
         }
 
-        public void LoadConsultantdict(Dictionary<String, Consultant> consultantdict)
+        public void LoadConsultants(Dictionary<String, Consultant> consultants)
         {
-            this.Consultants = consultantdict;
+            this.Consultants = consultants;
         }
 
         public void LoadConsultantagenda(Dictionary<String, List<Mission>> consultantagenda)
@@ -59,13 +59,18 @@ namespace Entreprise
 
         public int NumberConsultant()
         {
-            //See how many Consultant are under the manager (getter)
+            //See how many Consultant are under the manager
             return this.Consultants.Count;
         }
 
         public void GenerateReport()
         {
             //TODO
+        }
+
+        public void SendConsultantToMission(Consultant consultant, Mission mission)
+        {
+            consultant.AddMission(mission);
         }
     }
 }
