@@ -61,15 +61,9 @@ namespace Entreprise
         {
             return 60000 + 500 * this.NumberConsultant();
         }
-        public void GenerateRapport()
+        public void GenerateReport()
         {
-
-        }
-
-
-        public void FOO()
-        {
-
+            //TODO
         }
     }
 }
