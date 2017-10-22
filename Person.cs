@@ -19,7 +19,10 @@ namespace Entreprise
             this.Personnalaccount = personnalaccount;
         }
 
-
+        public override string ToString()
+        {
+            return this.Firstname + this.Lastname;
+        }
         //getter - setter
 
 
