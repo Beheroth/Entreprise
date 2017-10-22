@@ -16,7 +16,7 @@ namespace Entreprise
         {
             this.FileName = filename;
             // All files are in the folder Data
-            this.Path = @"\Data" + this.FileName;
+            this.Path = @"Data\" + this.FileName;
         }
 
         private string[] LoadFile()
@@ -35,12 +35,12 @@ namespace Entreprise
             // Load the file and putt each line in a Table of string
             Dictionary<String, List<List<String>>> result = new Dictionary<String, List<List<String>>>();
             string[] lines = this.LoadFile();
-            foreach(string line in lines)
+            foreach (string line in lines)
             {
                 // Match the lines with a regex to extract the information and stock it in a dictionnary
                 Regex rg = new Regex(@"^(?<job>\w+)-(?<firstname>\w+)-(?<lastname>\w+)$");
                 Match m = rg.Match(line);
-                if(m.Success)
+                if (m.Success)
                 {
                     List<String> name = new List<String>();
                     name.Add(m.Groups["firstname"].Value);
@@ -61,6 +61,18 @@ namespace Entreprise
                 }
             }
             return result;
+        }
+
+        public void SaveEmployes(List<List<String>> employes)
+        {
+            String text = "File with all the employes";
+            text += Environment.NewLine;
+            foreach(List<String> employe in employes)
+            {
+                text += employe[0] + '-' + employe[1] + '-' + employe[2];
+                text += Environment.NewLine;
+            }
+            this.SaveFile(text);
         }
     }
 }
