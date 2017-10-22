@@ -65,6 +65,12 @@ namespace Entreprise
         {
 
         }
+
+
+        public void FOO()
+        {
+
+        }
     }
 }
 
