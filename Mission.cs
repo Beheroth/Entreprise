@@ -8,9 +8,9 @@ namespace Entreprise
 {
     class Mission
     {
-        private DateTime Start;
-        private DateTime End;
-        private readonly Client Client;
+        public DateTime Start;
+        public DateTime End;
+        public readonly Client Client;
 
         Mission(DateTime Start, DateTime End, Client Client)
         {
