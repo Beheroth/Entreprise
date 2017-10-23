@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace Entreprise
 {
-    class Rapport
+    interface IGenerateReport
     {
-        List<Object> Data;
-
-        Rapport(List<Object> data)
-        {
-
-        }
+        String GenerateReport();
     }
 }

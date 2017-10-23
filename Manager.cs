@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entreprise
 {
-    class Manager : Person
+    class Manager : Person, IGenerateReport
     {
         private Dictionary<String, Consultant> Consultants;
         private Dictionary<String, List<Mission>> Consultantagenda;   //historique des missions
@@ -14,6 +14,12 @@ namespace Entreprise
         public Manager(String firstname, String lastname, int personnalaccount) : base(firstname, lastname, personnalaccount)
         {
             this.Consultants = new Dictionary<String, Consultant>();
+        }
+
+        public String GenerateReport()
+        {
+            String txt = "";
+            return txt;
         }
 
         //Getter - Setter
