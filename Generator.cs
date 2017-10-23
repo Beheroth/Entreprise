@@ -23,7 +23,7 @@ namespace Entreprise
             foreach (string c in employefile.Load)
             {
                 // Use the lines who match the pattern of the regex
-                Regex rg = new Regex(@"^(?<job>\[a-zA-Z])/(?<firstname>[a-zA-Z])/(?<lastname>[a-zA-Z])/(?<personalaccount>[0-9])$");
+                Regex rg = new Regex(@"^(?<job>\[a-zA-Z]+)/(?<firstname>[a-zA-Z]+)/(?<lastname>[a-zA-Z]+)/(?<personalaccount>[0-9]+)$");
                 Match m = rg.Match(c);
                 if (m.Success)
                 {
@@ -81,6 +81,70 @@ namespace Entreprise
                         int pa = Int32.Parse(m.Groups["personalaccount"].Value);
                         Manager manager = new Manager(m.Groups["firstname"].Value, m.Groups["lastname"].Value, pa);
                         managers["manager"].Add(manager);
+                    }
+                }
+            }
+            return result;
+        }
+
+        public List<Mission> GenerateMission(String filename)
+        {
+            List<Mission> result = new List<Mission>();
+            File missionfile = new File(filename);
+            // Extract each line of the file
+            foreach (string c in missionfile.Load)
+            {
+                Regex rg = new Regex(@"^(?<consultant>[a-zA-Z]+)/(?<datein>+)/(?<dateout>+)/(?<client>\w+)$");
+                Match m = rg.Match(c);
+                if (m.Success)
+                {
+                    String consultant = m.Groups["consultant"].Value;
+                    String client = m.Groups["client"].Value;
+                    // find a way to match the string and the object
+
+                    // Generate time in
+                    string[] datein = m.Groups["datein"].Value.Split('-'); // format date year-monht-day
+                    DateTime In = new DateTime();
+                    In.AddYears(Int32.Parse(datein[0]));
+                    In.AddMonths(Int32.Parse(datein[1]));
+                    In.AddDays(Int32.Parse(datein[2]));
+
+                    // Generate time out
+                    string[] dateout = m.Groups["datein"].Value.Split('-'); // format date year-monht-day
+                    DateTime Out = new DateTime();
+                    Out.AddYears(Int32.Parse(dateout[0]));
+                    Out.AddMonths(Int32.Parse(dateout[1]));
+                    Out.AddDays(Int32.Parse(dateout[2]));
+
+                    // find consultant in file
+                    // create consultantagenda type: Dictionary<String, List<Mission>>
+                    // mission type: <datetimestart, datetimeend, client>
+
+                    // find his manager
+                    // add consultant agenda to the manager
+                }
+            }
+            return result;
+        }
+
+        public List<Dictionary<String, Mission>> LinkConsultantandManager(String filename)
+        {
+            List<Dictionary<String, Mission>> result = new List<Dictionary<string, Mission>>();
+            File linkfile = new File(filename);
+            // Extract each line of the file
+            foreach (string l in linkfile.Load)
+            {
+                Regex rg = new Regex(@"^(?<manager>[a-zA-Z])/(?<consultantslist>\w)$");
+                Match m = rg.Match(l);
+                if (m.Success)
+                {
+                    String manager = m.Groups["manager"].Value;
+                    // find the manager via a string
+                    string[] consultants = m.Groups["consultantslist"].Value.Split('.');
+                    foreach(String c in consultants)
+                    {
+                        // find the consultant whith a string
+                        // connect it to the manager
                     }
                 }
             }
