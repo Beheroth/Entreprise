@@ -13,7 +13,7 @@ namespace Entreprise
             
         }
 
-        public void GenerateReport()
+        public string GenerateReport()
         {
             throw new NotImplementedException();
         }
