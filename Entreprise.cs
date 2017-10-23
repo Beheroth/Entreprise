@@ -27,10 +27,10 @@ namespace Entreprise
 
         // getter-setter
 
-        public Dictionary<string, Director> DictionaryDirectors { get { return this.Directors; } }
-        public Dictionary<string, Manager> DictionaryManagers { get { return this.Managers; } }
-        public Dictionary<string, Consultant> DictionaryConsultants { get { return this.Consultants; } }
-        public Dictionary<string, Client> DictionaryClients { get { return this.Clients; } }
+        public Dictionary<string, Director> GetDirectors { get { return this.Directors; } }
+        public Dictionary<string, Manager> GetManagers { get { return this.Managers; } }
+        public Dictionary<string, Consultant> GetConsultants { get { return this.Consultants; } }
+        public Dictionary<string, Client> GetClients { get { return this.Clients; } }
 
         // don't use Loadxxx to generate
 
