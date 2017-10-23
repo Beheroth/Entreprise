@@ -8,6 +8,6 @@ namespace Entreprise
 {
     interface IGenerateReport
     {
-        String GenerateReport();
+        void GenerateReport();
     }
 }

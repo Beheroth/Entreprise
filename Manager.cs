@@ -16,10 +16,9 @@ namespace Entreprise
             this.Consultants = new Dictionary<String, Consultant>();
         }
 
-        public String GenerateReport()
+        public void GenerateReport()
         {
-            String txt = "";
-            return txt;
+            throw new NotImplementedException();
         }
 
         //Getter - Setter
