@@ -18,7 +18,15 @@ namespace Entreprise
 
         public void GenerateReport()
         {
-            throw new NotImplementedException();
+            String name = "ManagerReport" + "-" + this.ToString();
+            File ManagerReport = new File(name);
+            String txt = "";
+            foreach (Consultant consultant in Consultants.Values)
+            {
+                txt += consultant.ToString() + "    :   " + consultant.GetMissionagenda()[0].GetClient().ToString();
+                txt += Environment.NewLine;
+            }
+            ManagerReport.SaveFile(txt);
         }
 
         //Getter - Setter

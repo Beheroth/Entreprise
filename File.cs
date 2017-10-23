@@ -30,7 +30,7 @@ namespace Entreprise
             get {return this.LoadFile();}
         }
 
-        private void SaveFile(String text)
+        public void SaveFile(String text)
         {
             System.IO.File.WriteAllText(this.Path, text);
         }
