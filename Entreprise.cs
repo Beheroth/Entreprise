@@ -32,7 +32,7 @@ namespace Entreprise
         public Dictionary<string, Consultant> DictionaryConsultants { get { return this.Consultants; } }
         public Dictionary<string, Client> DictionaryClients { get { return this.Clients; } }
 
-        // don't use to generate
+        // don't use Loadxxx to generate
 
         //BEWARE OF THE SHALLOW COPIES!!!
 
@@ -73,10 +73,15 @@ namespace Entreprise
             this.Consultants.Add(consultant.ToString(), consultant);
         }
 
+        public void AddClient(Client client)
+        {
+            this.Clients.Add(client.ToString(), client);
+        }
+
         //method
 
 
-            //pay 
+        //pay 
 
         public void PayAll()
         {
