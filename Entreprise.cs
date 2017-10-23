@@ -25,6 +25,14 @@ namespace Entreprise
             this.Date = date;
         }
 
+        // getter-setter
+
+        public Dictionary<string, Director> DictionaryDirectors { get { return this.Directors; } }
+        public Dictionary<string, Manager> DictionaryManagers { get { return this.Managers; } }
+        public Dictionary<string, Consultant> DictionaryConsultants { get { return this.Consultants; } }
+        public Dictionary<string, Client> DictionaryClients { get { return this.Clients; } }
+
+        // don't use to generate
 
         //BEWARE OF THE SHALLOW COPIES!!!
 
@@ -57,7 +65,12 @@ namespace Entreprise
 
         public void AddManager(Manager manager)
         {
-            
+            this.Managers.Add(manager.ToString(), manager);
+        }
+
+        public void AddConsultant(Consultant consultant)
+        {
+            this.Consultants.Add(consultant.ToString(), consultant);
         }
 
         //method
