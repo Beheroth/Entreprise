@@ -77,8 +77,8 @@ namespace Entreprise
                 Match m = rg.Match(c);
                 if (m.Success)
                 {
-                    Consultant consultant = this.Entreprise.DictionaryConsultants[m.Groups["consultant"].Value];
-                    Client client = this.Entreprise.DictionaryClients[m.Groups["client"].Value];
+                    Consultant consultant = this.Entreprise.GetConsultants[m.Groups["consultant"].Value];
+                    Client client = this.Entreprise.GetClients[m.Groups["client"].Value];
 
 
                     // Generate time in
@@ -109,13 +109,13 @@ namespace Entreprise
                         consultantagenda[m.Groups["consultant"].Value] = listmission;
                     }
 
-                    foreach(String manager in this.Entreprise.DictionaryManagers.Keys)
+                    foreach(String manager in this.Entreprise.GetManagers.Keys)
                     {
                         foreach(string consu in consultantagenda.Keys)
                         {
-                            if (this.Entreprise.DictionaryManagers[manager].GetConsultants().ContainsKey(consu))
+                            if (this.Entreprise.GetManagers[manager].GetConsultants().ContainsKey(consu))
                             {
-                                this.Entreprise.DictionaryManagers[manager].AddConsultantmissions(consultantagenda[consu], consu);
+                                this.Entreprise.GetManagers[manager].AddConsultantmissions(consultantagenda[consu], consu);
                             }
                         }
                     }
@@ -136,11 +136,11 @@ namespace Entreprise
                     String managername = m.Groups["manager"].Value;
                     try
                     {
-                        Manager manager = this.Entreprise.DictionaryManagers[managername];
+                        Manager manager = this.Entreprise.GetManagers[managername];
                         string[] consultants = m.Groups["consultantslist"].Value.Split('-');
                         foreach (String consultantname in consultants)
                         {
-                            Consultant consultant = this.Entreprise.DictionaryConsultants[consultantname];
+                            Consultant consultant = this.Entreprise.GetConsultants[consultantname];
                             manager.AddConsultant(consultant);
                         }
                     }
