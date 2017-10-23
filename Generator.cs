@@ -71,7 +71,7 @@ namespace Entreprise
 
         public List<Mission> GenerateMission(String filename)
         {
-            List<Mission> result = new List<Mission>();
+            Dictionary<String, List<Mission>> result = new Dictionary<String, List<Mission>>();
             File missionfile = new File(filename);
             // Extract each line of the file
             foreach (string c in missionfile.Load)
@@ -80,38 +80,51 @@ namespace Entreprise
                 Match m = rg.Match(c);
                 if (m.Success)
                 {
-                    String consultant = m.Groups["consultant"].Value;
-                    String client = m.Groups["client"].Value;
-                    // find a way to match the string and the object
+                    Consultant consultant = this.Entreprise.DictionaryConsultants[m.Groups["consultant"].Value];
+                    Client client = this.Entreprise.DictionaryClients[m.Groups["client"].Value];
+
 
                     // Generate time in
-                    string[] datein = m.Groups["datein"].Value.Split('-'); // format date year-monht-day
+                    string[] datein = m.Groups["datein"].Value.Split('-'); // format date year-month-day
                     DateTime In = new DateTime();
                     In.AddYears(Int32.Parse(datein[0]));
                     In.AddMonths(Int32.Parse(datein[1]));
                     In.AddDays(Int32.Parse(datein[2]));
 
                     // Generate time out
-                    string[] dateout = m.Groups["datein"].Value.Split('-'); // format date year-monht-day
+                    string[] dateout = m.Groups["datein"].Value.Split('-'); // format date year-month-day
                     DateTime Out = new DateTime();
                     Out.AddYears(Int32.Parse(dateout[0]));
                     Out.AddMonths(Int32.Parse(dateout[1]));
                     Out.AddDays(Int32.Parse(dateout[2]));
 
+                    // Generate Mission
+                    Mission mission = new Mission(In, Out, client); // Problem to create object mission ??
+
+                    if ( result.ContainsKey(m.Groups["consultant"].Value)) // if key in dictionary 
+                    {
+                        result[m.Groups["consultant"].Value].Add(mission);
+                    }
+                    else
+                    {
+                        List<Mission> listmission = new List<Mission>();
+                        listmission.Add(mission);
+                        result[m.Groups["consultant"].Value] = listmission;
+                    }
+
+
                     // find consultant in file
-                    // create consultantagenda type: Dictionary<String, List<Mission>>
+                    // create consultantagenda type: List<Mission>
                     // mission type: <datetimestart, datetimeend, client>
 
                     // find his manager
                     // add consultant agenda to the manager
                 }
             }
-            return result;
         }
 
-        public List<Dictionary<String, Mission>> LinkConsultantandManager(String filename)
+        public void LinkConsultantandManager(String filename)
         {
-            List<Dictionary<String, Mission>> result = new List<Dictionary<string, Mission>>();
             File linkfile = new File(filename);
             // Extract each line of the file
             foreach (string l in linkfile.Load)
@@ -120,22 +133,28 @@ namespace Entreprise
                 Match m = rg.Match(l);
                 if (m.Success)
                 {
-                    String manager = m.Groups["manager"].Value;
-                    // find the manager via a string
-                    string[] consultants = m.Groups["consultantslist"].Value.Split('.');
-                    foreach(String c in consultants)
+                    String managername = m.Groups["manager"].Value;
+                    try
                     {
-                        // find the consultant whith a string
-                        // connect it to the manager
+                        Manager manager = this.Entreprise.DictionaryManagers[managername];
+                        string[] consultants = m.Groups["consultantslist"].Value.Split('-');
+                        foreach (String consultantname in consultants)
+                        {
+                            Consultant consultant = this.Entreprise.DictionaryConsultants[consultantname];
+                            manager.AddConsultant(consultant);
+                        }
+                    }
+                    catch
+                    {
+                        String msgERROR = "The manager :" + managername + "in the file LinkFile.txt is not find in the Entreprise";
+                        Console.WriteLine(msgERROR);
                     }
                 }
             }
-            return result;
         }
 
-        public List<Client> GenerateClient(String filename)
+        public void GenerateClient(String filename)
         {
-            List<Client> result = new List<Client>();
             File clientfile = new File(filename);
             // Extract each line of the file
             foreach (string c in clientfile.Load)
@@ -148,11 +167,10 @@ namespace Entreprise
                     {
                         // Generate the client
                         Client client = new Client(m.Groups["name"].Value);
-                        result.Add(client);
+                        this.Entreprise.AddClient(client);
                     }
                 }
             }
-            return result;
         }
     }
 }
