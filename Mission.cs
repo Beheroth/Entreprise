@@ -8,11 +8,11 @@ namespace Entreprise
 {
     class Mission
     {
-        public DateTime Start;
-        public DateTime End;
-        public readonly Client Client;
+        private DateTime Start;
+        private DateTime End;
+        private readonly Client Client;
 
-        Mission(DateTime Start, DateTime End, Client Client)
+        public Mission(DateTime Start, DateTime End, Client Client)
         {
             this.Start = Start;
             this.End = End;
