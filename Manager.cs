@@ -57,6 +57,17 @@ namespace Entreprise
             this.Consultants = consultants;
         }
 
+        public void AddConsultantmissions(List<Mission> consultantmissions, String consultantname)
+        {
+            if (this.Consultantagenda.ContainsKey(consultantname))
+            {
+                foreach(Mission mission in consultantmissions)
+                {
+                    this.Consultantagenda[consultantname].Add(mission);
+                }
+            }
+            this.Consultantagenda[consultantname] = consultantmissions;
+        }
         public void LoadConsultantagenda(Dictionary<String, List<Mission>> consultantagenda)
         {
             this.Consultantagenda = consultantagenda;
@@ -66,11 +77,6 @@ namespace Entreprise
         {
             //See how many Consultant are under the manager
             return this.Consultants.Count;
-        }
-
-        public void GenerateReport()
-        {
-            //TODO
         }
 
         public void SendConsultantToMission(Consultant consultant, Mission mission)

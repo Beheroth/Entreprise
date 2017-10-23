@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Entreprise
 {
@@ -69,9 +66,9 @@ namespace Entreprise
 
         }
 
-        public List<Mission> GenerateMission(String filename)
+        public void GenerateMission(String filename)
         {
-            Dictionary<String, List<Mission>> result = new Dictionary<String, List<Mission>>();
+            Dictionary<String, List<Mission>> consultantagenda = new Dictionary<String, List<Mission>>();
             File missionfile = new File(filename);
             // Extract each line of the file
             foreach (string c in missionfile.Load)
@@ -101,24 +98,27 @@ namespace Entreprise
                     // Generate Mission
                     Mission mission = new Mission(In, Out, client); // Problem to create object mission ??
 
-                    if ( result.ContainsKey(m.Groups["consultant"].Value)) // if key in dictionary 
+                    if ( consultantagenda.ContainsKey(m.Groups["consultant"].Value)) // if key in dictionary 
                     {
-                        result[m.Groups["consultant"].Value].Add(mission);
+                        consultantagenda[m.Groups["consultant"].Value].Add(mission);
                     }
                     else
                     {
                         List<Mission> listmission = new List<Mission>();
                         listmission.Add(mission);
-                        result[m.Groups["consultant"].Value] = listmission;
+                        consultantagenda[m.Groups["consultant"].Value] = listmission;
                     }
 
-
-                    // find consultant in file
-                    // create consultantagenda type: List<Mission>
-                    // mission type: <datetimestart, datetimeend, client>
-
-                    // find his manager
-                    // add consultant agenda to the manager
+                    foreach(String manager in this.Entreprise.DictionaryManagers.Keys)
+                    {
+                        foreach(string consu in consultantagenda.Keys)
+                        {
+                            if (this.Entreprise.DictionaryManagers[manager].GetConsultants().ContainsKey(consu))
+                            {
+                                this.Entreprise.DictionaryManagers[manager].AddConsultantmissions(consultantagenda[consu], consu);
+                            }
+                        }
+                    }
                 }
             }
         }
