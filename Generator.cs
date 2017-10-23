@@ -9,15 +9,17 @@ namespace Entreprise
 {
     class Generator
     {
-        public Generator()
+        public Entreprise Entreprise;
+
+        public Generator(String entreprise, DateTime date)
         {
+            this.Entreprise = new Entreprise(entreprise, date);
         }
 
         // Method to generate the lists of the entreprise
 
-        public List<Dictionary<String,Object>> GenerateEmploye(String filename)
+        public void GenerateEmploye(String filename)
         {
-            List<Dictionary<String,Object>> result = new List<Dictionary<String, Object>>();
             File employefile = new File(filename);
             // Extract each line of the file 
             foreach (string c in employefile.Load)
@@ -30,61 +32,41 @@ namespace Entreprise
                     // Generate the consultants
                     if (m.Groups["job"].Value == "consultant")
                     {
-                        Dictionary<String, List<Consultant>> consultants = new Dictionary<string, List<Consultant>>();
-                        List<Consultant> list = new List<Consultant>();
-                        consultants["consultant"] = list;
-
                         int pa = Int32.Parse(m.Groups["personalaccount"].Value);
                         Consultant consultant = new Consultant(m.Groups["firstname"].Value, m.Groups["lastname"].Value, pa);
-                        consultants["consultant"].Add(consultant);
+                        this.Entreprise.AddConsultant(consultant);
                     }
 
                     // Generate the directors
                     if (m.Groups["job"].Value == "director")
                     {
-                        Dictionary<String, List<Director>> directors = new Dictionary<string, List<Director>>();
-                        List<Director> list = new List<Director>();
-                        directors["director"] = list;
-
                         int pa = Int32.Parse(m.Groups["personalaccount"].Value);
                         Director director = new Director(m.Groups["firstname"].Value, m.Groups["lastname"].Value, pa);
-                        directors["director"].Add(director);
+                        this.Entreprise.AddDirector(director);
                     }
                     if (m.Groups["job"].Value == "financialdirector")
                     {
-                        Dictionary<String, List<Director>> directors = new Dictionary<string, List<Director>>();
-                        List<Director> list = new List<Director>();
-                        directors["director"] = list;
-
                         int pa = Int32.Parse(m.Groups["personalaccount"].Value);
                         FinancialDirector director = new FinancialDirector(m.Groups["firstname"].Value, m.Groups["lastname"].Value, pa);
-                        directors["financialdirector"].Add(director);
+                        this.Entreprise.AddDirector(director);
                     }
                     if (m.Groups["job"].Value == "humanresourcesdirector")
                     {
-                        Dictionary<String, List<Director>> directors = new Dictionary<string, List<Director>>();
-                        List<Director> list = new List<Director>();
-                        directors["director"] = list;
-
                         int pa = Int32.Parse(m.Groups["personalaccount"].Value);
                         HumanResourcesDirector director = new HumanResourcesDirector(m.Groups["firstname"].Value, m.Groups["lastname"].Value, pa);
-                        directors["humanressourcesdirector"].Add(director);
+                        this.Entreprise.AddDirector(director);
                     }
 
                     // Generate the managers
                     if (m.Groups["job"].Value == "manager")
                     {
-                        Dictionary<String, List<Manager>> managers = new Dictionary<string, List<Manager>>();
-                        List<Manager> list = new List<Manager>();
-                        managers["manager"] = list;
-
                         int pa = Int32.Parse(m.Groups["personalaccount"].Value);
                         Manager manager = new Manager(m.Groups["firstname"].Value, m.Groups["lastname"].Value, pa);
-                        managers["manager"].Add(manager);
+                        this.Entreprise.AddManager(manager);
                     }
                 }
             }
-            return result;
+
         }
 
         public List<Mission> GenerateMission(String filename)

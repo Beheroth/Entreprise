@@ -10,6 +10,13 @@ namespace Entreprise
     {
         static void Main(string[] args)
         {
+            DateTime date = new DateTime();
+            date.AddMonths(10);
+            date.AddDays(23);
+            date.AddYears(2017);
+            String name = "GE";
+
+            Generator gen = new Generator(name, date);
         }
     }
 }
