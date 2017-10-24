@@ -16,7 +16,10 @@ namespace Entreprise
             date.AddYears(2017);
             String name = "GE";
 
-            Generator gen = new Generator(name, date);
+            Generator gen = new Generator();
+            Entreprise entreprise = gen.GenerateAll(name, date);
+
+
         }
     }
 }

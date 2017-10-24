@@ -6,16 +6,26 @@ namespace Entreprise
 {
     class Generator
     {
-        public Entreprise Entreprise;
+        private Entreprise Entreprise;
 
-        public Generator(String entreprise, DateTime date)
+        public Generator()
         {
-            this.Entreprise = new Entreprise(entreprise, date);
+            
         }
 
+
+        public Entreprise GenerateAll(String entreprise, DateTime date)
+        {
+            this.Entreprise = new Entreprise(entreprise, date);
+            this.GenerateEmploye("EmployeFile.txt");
+            this.LinkConsultantandManager("LinkFile.txt");
+            this.GenerateClient("ClientFile.txt");
+            this.GenerateMission("MissionFile.txt");
+            return this.Entreprise;
+        }
         // Method to generate the lists of the entreprise
 
-        public void GenerateEmploye(String filename)
+        private void GenerateEmploye(String filename)
         {
             File employefile = new File(filename);
             // Extract each line of the file 
@@ -66,7 +76,7 @@ namespace Entreprise
 
         }
 
-        public void GenerateMission(String filename)
+        private void GenerateMission(String filename)
         {
             Dictionary<String, List<Mission>> consultantagenda = new Dictionary<String, List<Mission>>();
             File missionfile = new File(filename);
@@ -123,7 +133,7 @@ namespace Entreprise
             }
         }
 
-        public void LinkConsultantandManager(String filename)
+        private void LinkConsultantandManager(String filename)
         {
             File linkfile = new File(filename);
             // Extract each line of the file
@@ -153,7 +163,7 @@ namespace Entreprise
             }
         }
 
-        public void GenerateClient(String filename)
+        private void GenerateClient(String filename)
         {
             File clientfile = new File(filename);
             // Extract each line of the file
