@@ -24,13 +24,17 @@ namespace Entreprise
         private void End()
         {
             Console.WriteLine("Print any key to quit");
-            Console.ReadKey();
+            Console.ReadLine();
         }
 
         private String StringStart()
         {
             String result = "";
-            result += "Welcom to " + this.Entreprise.GetName() + " Entreprise";
+            result += Environment.NewLine;
+            result += "=======================================================";
+            result += Environment.NewLine;
+            result += Environment.NewLine;
+            result += "Welcome to " + this.Entreprise.GetName() + " Entreprise";
             result += Environment.NewLine;
             result += Environment.NewLine;
             result += this.StringMenu();
@@ -39,17 +43,23 @@ namespace Entreprise
 
         private String StringMenu()
         {
+            List<String> listchoice = new List<String>
+            {
+                "Print a ManagerReport",
+                "Print a FinacialDirectorReport",
+                "Print a HumanRessourceReport"
+            };
+
             String result = "";
             result += "What would you like to do ??";
             result += Environment.NewLine;
-            result += "1. Print a ManagerReport";
+            for( int i = 0; i < listchoice.Count; i++)
+            {
+                result += String.Format("{0}. {1}", i+1, listchoice[i]);
+                result += Environment.NewLine;
+            }
             result += Environment.NewLine;
-            result += "2. Print a FinacialDirectorReport";
-            result += Environment.NewLine;
-            result += "3. Print a HumanRessourceReport";
-            result += Environment.NewLine;
-            result += Environment.NewLine;
-            result += "Type (1,2 or 3) in the console";
+            result += String.Format("Type number in the console between 0 and {0}", listchoice.Count);
             return result;
         }
 

@@ -18,23 +18,18 @@ namespace Entreprise
         {
             this.Entreprise = new Entreprise(entreprise, date);
             Console.Write("[GEN] Entreprise Loaded" + Environment.NewLine);
-            Console.ReadKey();
             this.GenerateEmploye("EmployeFile.txt");
             Console.Write("[GEN] Employees Loaded" + Environment.NewLine);
             Console.Write("Consultants : " + this.Entreprise.GetConsultants().Count + Environment.NewLine);
             Console.Write("Managers : " + this.Entreprise.GetManagers().Count + Environment.NewLine);
             Console.Write("Directors : " + this.Entreprise.GetDirectors().Count + Environment.NewLine);
-            Console.ReadKey();
             this.LinkConsultantandManager("LinkFile.txt");
             Console.Write("[GEN] Consultant link to Manager" + Environment.NewLine);
-            Console.ReadKey();
             this.GenerateClient("ClientFile.txt");
             Console.Write("[GEN] Client Loaded" + Environment.NewLine);
             Console.Write("Clients : " + this.Entreprise.GetClients().Count + Environment.NewLine);
-            Console.ReadKey();
             this.GenerateMission("MissionFile.txt");
             Console.Write("[GEN] Mission Loaded" + Environment.NewLine);
-            Console.ReadKey();
             return this.Entreprise;
         }
 
@@ -170,7 +165,6 @@ namespace Entreprise
                         {
                             Consultant consultant = this.Entreprise.GetConsultants()[consultantname];
                             manager.AddConsultant(consultant);
-                            Console.WriteLine(consultant.ToString() + " Added to Manager " + manager.ToString());
                         }
                     }
                     catch
