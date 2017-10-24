@@ -9,6 +9,7 @@ namespace Entreprise
     class InterfaceClient
     {
         public Entreprise Entreprise;
+        private String Username;
 
         public InterfaceClient(Entreprise entreprise)
         {
@@ -22,7 +23,7 @@ namespace Entreprise
         }
         private void Run()
         {
-            this.StringMenu();
+            this.Menu();
             this.End();
         }
 
@@ -35,6 +36,8 @@ namespace Entreprise
             String username = firstname + lastname;
             if(this.Entreprise.GetManagers().ContainsKey(username) | this.Entreprise.GetDirectors().ContainsKey(username))
             {
+                this.Username = username;
+                Console.WriteLine("You're Log In");
                 this.Run();
             }
             else
@@ -63,7 +66,7 @@ namespace Entreprise
             return result;
         }
 
-        private String StringMenu()
+        private void Menu()
         {
             List<String> listchoice = new List<String>
             {
@@ -81,8 +84,32 @@ namespace Entreprise
                 result += Environment.NewLine;
             }
             result += Environment.NewLine;
-            result += String.Format("Type number in the console between 0 and {0}", listchoice.Count);
-            return result;
+            result += String.Format("Type number in the console between 1 and {0}", listchoice.Count);
+            Console.WriteLine(result);
+            String task = Console.ReadLine();
+            if(task == "1")
+            {
+                try
+                {
+                    this.Entreprise.GetManagers()[this.Username].GenerateReport();
+                }
+                catch
+                {
+                    Console.WriteLine("ERROR manager");
+                }
+
+            }
+            if(task == "2" | task == "3")
+            {
+                try
+                {
+                    this.Entreprise.GetDirectors()[this.Username].GenerateReport(this.Entreprise);
+                }
+                catch
+                {
+                    Console.WriteLine("ERROR director");
+                }
+            }
         }
 
     }

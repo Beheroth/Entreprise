@@ -14,7 +14,7 @@ namespace Entreprise
 
         }
 
-        public override void GenerateReport(Entreprise entreprise)
+        public void GenerateReport(Entreprise entreprise)
         {
             String name = "HR Report" + " - " + this.ToString() + ".txt";
             File HRDReport = new File(name);

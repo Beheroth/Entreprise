@@ -23,6 +23,7 @@ namespace Entreprise
 
         public List<Mission> GetMissionagenda()
         {
+            Console.WriteLine("[CONS]" + this.Missionagenda.Count);
             return this.Missionagenda;
         }
 
