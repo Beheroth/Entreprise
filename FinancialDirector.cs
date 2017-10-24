@@ -47,12 +47,25 @@ namespace Entreprise
         private string GenerateConsultantsSalary(Entreprise entreprise, DateTime date)
         {
             string report = " - Consultants: \r \r";
-            foreach (Consultant consultant in entreprise.GetConsultants().Values)
+            foreach (Manager manager in entreprise.GetManagers().Values)
             {
-                report += String.Format("   - {0} {1} - {2} €\r",
-                    consultant.GetFirstname(),
-                    consultant.GetLastname(),
-                    60000 + 500 ); //TODO: modifier consultant pour qu'il détienne un agenda de toutes ses missions effectuées... ou pas
+                foreach (Consultant consultant in manager.GetConsultants().Values)
+                {
+                    int bonus = 0;
+                    foreach(Mission mission in consultant.GetMissionsFromDate(date))
+                    {
+                        int bounty = 0;
+                        if(mission.GetDuration() < 25)
+                        {
+                            bounty = 250 - 10 * mission.GetDuration();
+                        }
+                        bonus += bounty;
+                    }
+                    report += String.Format("   - {0} {1} - {2} €\r",
+                        consultant.GetFirstname(),
+                        consultant.GetLastname(),
+                        30000 + (60000 + 500 * manager.NumberConsultant()) / 100 + bonus);
+                }
             }
             return report + "\r";
         }
