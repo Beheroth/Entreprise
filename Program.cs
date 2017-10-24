@@ -17,7 +17,7 @@ namespace Entreprise
             Entreprise entreprise = gen.GenerateAll(name, date);
 
             InterfaceClient show = new InterfaceClient(entreprise);
-            show.Run();
+            show.Start();
         }
     }
 }

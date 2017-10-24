@@ -9,17 +9,20 @@ namespace Entreprise
     class InterfaceClient
     {
         public Entreprise Entreprise;
-        private String Username;
 
         public InterfaceClient(Entreprise entreprise)
         {
             this.Entreprise = entreprise;
         }
 
-        public void Run()
+        public void Strat()
         {
             Console.WriteLine(this.StringStart());
             this.LogIn();
+        }
+        private void Run()
+        {
+            this.StringMenu();
             this.End();
         }
 
@@ -29,7 +32,16 @@ namespace Entreprise
             String firstname = Console.ReadLine();
             Console.WriteLine("Lastname :");
             String lastname = Console.ReadLine();
-            this.Username = firstname + lastname;
+            String username = firstname + lastname;
+            if(this.Entreprise.GetManagers().ContainsKey(username) | this.Entreprise.GetDirectors().ContainsKey(username))
+            {
+                this.Run();
+            }
+            else
+            {
+                Console.WriteLine("You are not alowd to use this app (you're not a director or a manager)");
+                this.LogIn();
+            }
         }
 
         private void End()
