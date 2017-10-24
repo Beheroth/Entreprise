@@ -15,7 +15,7 @@ namespace Entreprise
             this.Entreprise = entreprise;
         }
 
-        public void Strat()
+        public void Start()
         {
             Console.WriteLine(this.StringStart());
             this.LogIn();
