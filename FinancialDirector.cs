@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entreprise
 {
-    class FinancialDirector : Director, IGenerateReport
+    class FinancialDirector : Director
     {
         public FinancialDirector(
             String firstname,

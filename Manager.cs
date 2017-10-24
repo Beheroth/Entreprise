@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entreprise
 {
-    class Manager : Person, IGenerateReport
+    class Manager : Person
     {
         private Dictionary<String, Consultant> Consultants;
         private Dictionary<String, List<Mission>> Consultantagenda;   //historique des missions
