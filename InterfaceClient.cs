@@ -8,7 +8,7 @@ namespace Entreprise
 {
     class InterfaceClient
     {
-        Entreprise Entreprise;
+        public Entreprise Entreprise;
 
         public InterfaceClient(Entreprise entreprise)
         {
@@ -18,38 +18,70 @@ namespace Entreprise
         public void Start()
         {
             Console.WriteLine(this.StringStart());
+            this.LogIn();
+        }
+        private void Run()
+        {
+            this.StringMenu();
             this.End();
+        }
+
+        private void LogIn()
+        {
+            Console.WriteLine("Firstname :");
+            String firstname = Console.ReadLine();
+            Console.WriteLine("Lastname :");
+            String lastname = Console.ReadLine();
+            String username = firstname + lastname;
+            if(this.Entreprise.GetManagers().ContainsKey(username) | this.Entreprise.GetDirectors().ContainsKey(username))
+            {
+                this.Run();
+            }
+            else
+            {
+                Console.WriteLine("You are not alowd to use this app (you're not a director or a manager)");
+                this.LogIn();
+            }
         }
 
         private void End()
         {
             Console.WriteLine("Print any key to quit");
-            Console.ReadKey();
+            Console.ReadLine();
         }
 
         private String StringStart()
         {
             String result = "";
-            result += "Welcom to " + this.Entreprise.GetName() + " Entreprise";
+            result += Environment.NewLine;
+            result += "=======================================================";
             result += Environment.NewLine;
             result += Environment.NewLine;
-            result += this.StringMenu();
+            result += "Welcome to " + this.Entreprise.GetName() + " Entreprise";
+            result += Environment.NewLine;
+            result += Environment.NewLine;
             return result;
         }
 
         private String StringMenu()
         {
+            List<String> listchoice = new List<String>
+            {
+                "Print a ManagerReport",
+                "Print a FinacialDirectorReport",
+                "Print a HumanRessourceReport"
+            };
+
             String result = "";
             result += "What would you like to do ??";
             result += Environment.NewLine;
-            result += "1. Print a ManagerReport";
+            for( int i = 0; i < listchoice.Count; i++)
+            {
+                result += String.Format("{0}. {1}", i+1, listchoice[i]);
+                result += Environment.NewLine;
+            }
             result += Environment.NewLine;
-            result += "2. Print a FinacialDirectorReport";
-            result += Environment.NewLine;
-            result += "3. Print a HumanRessourceReport";
-            result += Environment.NewLine;
-            result += Environment.NewLine;
-            result += "Type (1,2 or 3) in the console";
+            result += String.Format("Type number in the console between 0 and {0}", listchoice.Count);
             return result;
         }
 
