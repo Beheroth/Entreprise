@@ -54,6 +54,7 @@
     <Compile Include="GenerateReport.cs" />
     <Compile Include="Generator.cs" />
     <Compile Include="HumanResourcesDirector.cs" />
+    <Compile Include="InterfaceClient.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="Mission.cs" />
     <Compile Include="Person.cs" />

@@ -17,10 +17,24 @@ namespace Entreprise
         public Entreprise GenerateAll(String entreprise, DateTime date)
         {
             this.Entreprise = new Entreprise(entreprise, date);
+            Console.Write("[GEN] Entreprise Loaded" + Environment.NewLine);
+            Console.ReadKey();
             this.GenerateEmploye("EmployeFile.txt");
+            Console.Write("[GEN] Employees Loaded" + Environment.NewLine);
+            Console.Write("Consultants : " + this.Entreprise.GetConsultants().Count + Environment.NewLine);
+            Console.Write("Managers : " + this.Entreprise.GetManagers().Count + Environment.NewLine);
+            Console.Write("Directors : " + this.Entreprise.GetDirectors().Count + Environment.NewLine);
+            Console.ReadKey();
             this.LinkConsultantandManager("LinkFile.txt");
+            Console.Write("[GEN] Consultant link to Manager" + Environment.NewLine);
+            Console.ReadKey();
             this.GenerateClient("ClientFile.txt");
+            Console.Write("[GEN] Client Loaded" + Environment.NewLine);
+            Console.Write("Clients : " + this.Entreprise.GetClients().Count + Environment.NewLine);
+            Console.ReadKey();
             this.GenerateMission("MissionFile.txt");
+            Console.Write("[GEN] Mission Loaded" + Environment.NewLine);
+            Console.ReadKey();
             return this.Entreprise;
         }
 
@@ -34,7 +48,7 @@ namespace Entreprise
             foreach (string c in employefile.Load)
             {
                 // Use the lines who match the pattern of the regex
-                Regex rg = new Regex(@"^(?<job>\[a-zA-Z]+)/(?<firstname>[a-zA-Z]+)/(?<lastname>[a-zA-Z]+)/(?<personalaccount>[0-9]+)$");
+                Regex rg = new Regex(@"^(?<job>[a-zA-Z]+)/(?<firstname>[a-zA-Z]+)/(?<lastname>[a-zA-Z]+)/(?<personalaccount>[0-9]+)$");
                 Match m = rg.Match(c);
                 if (m.Success)
                 {
@@ -86,7 +100,7 @@ namespace Entreprise
             foreach (string c in missionfile.Load)
             {
                 // Use the lines who match the pattern of the regex
-                Regex rg = new Regex(@"^(?<consultant>[a-zA-Z]+)/(?<datein>+)/(?<dateout>+)/(?<client>\w+)$");
+                Regex rg = new Regex(@"^(?<consultant>[a-zA-Z]+)/(?<datein>[0-9]{4}\-[0-9]{2}\-[0-9]{2})/(?<dateout>[0-9]{4}\-[0-9]{2}\-[0-9]{2})/(?<client>\w+)");
                 Match m = rg.Match(c);
                 if (m.Success)
                 {
@@ -141,10 +155,11 @@ namespace Entreprise
             // Extract each line of the file
             foreach (string l in linkfile.Load)
             {
-                Regex rg = new Regex(@"^(?<manager>[a-zA-Z])/(?<consultantslist>\w)$");
+                Regex rg = new Regex(@"^(?<manager>[a-zA-Z]+)/(?<consultantslist>[a-zA-Z\-]+)$");
                 Match m = rg.Match(l);
                 if (m.Success)
                 {
+                    Console.WriteLine("[TEST] Link");
                     String managername = m.Groups["manager"].Value;
                     try
                     {
@@ -155,6 +170,7 @@ namespace Entreprise
                         {
                             Consultant consultant = this.Entreprise.GetConsultants()[consultantname];
                             manager.AddConsultant(consultant);
+                            Console.WriteLine(consultant.ToString() + " Added to Manager " + manager.ToString());
                         }
                     }
                     catch
@@ -172,7 +188,7 @@ namespace Entreprise
             // Extract each line of the file
             foreach (string c in clientfile.Load)
             {
-                Regex rg = new Regex(@"^(?<job>[a-zA-Z])/(?<name>\w)$");
+                Regex rg = new Regex(@"^(?<job>[a-zA-Z]+)/(?<name>\w+)$");
                 Match m = rg.Match(c);
                 if (m.Success)
                 {

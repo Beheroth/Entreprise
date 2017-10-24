@@ -6,19 +6,14 @@ using System.Threading.Tasks;
 
 namespace Entreprise
 {
-    class Director : Person, IGenerateReport
+    class Director : Person
     {
         public Director(String firstname, String lastname, int personnalaccount) : base(firstname, lastname, personnalaccount)
         {
             
         }
 
-        public void GenerateReport()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void GetPaid()
+        public void GetPaid()
         {
             this.SetPersonnalaccount(this.GetPersonnalaccount() + 150000); 
         }

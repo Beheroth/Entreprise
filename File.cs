@@ -22,6 +22,7 @@ namespace Entreprise
         private string[] LoadFile()
         {
             string[] lines = System.IO.File.ReadAllLines(this.Path);
+            Console.WriteLine("[File] File Loaded");
             return lines;
         }
 

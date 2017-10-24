@@ -15,5 +15,9 @@ namespace Entreprise
             this.Name = Name;
         }
 
+        public override String ToString()
+        {
+            return this.Name;
+        }
     }
 }
