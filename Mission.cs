@@ -10,9 +10,9 @@ namespace Entreprise
     {
         private DateTime Start;
         private DateTime End;
-        private readonly Client Client;
+        private readonly IClient Client;
 
-        public Mission(DateTime Start, DateTime End, Client Client)
+        public Mission(DateTime Start, DateTime End, IClient Client)
         {
             this.Start = Start;
             this.End = End;
@@ -31,7 +31,7 @@ namespace Entreprise
             return this.End;
         }
 
-        public Client GetClient()
+        public IClient GetClient()
         {
             return this.Client;
         }
