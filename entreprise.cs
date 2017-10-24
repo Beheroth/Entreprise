@@ -28,29 +28,29 @@ namespace Entreprise
         // getter-setter
 
         public Dictionary<string, Director> GetDirectors()
-            {
-                return this.Directors;
-            }
+        {
+            return this.Directors;
+        }
 
         public Dictionary<string, Manager> GetManagers()
-            {
-                return this.Managers;
-            }
-        
+        {
+            return this.Managers;
+        }
+
         public Dictionary<string, Consultant> GetConsultants()
-            {
-                return this.Consultants;
-            }
-        
+        {
+            return this.Consultants;
+        }
+
         public Dictionary<string, Client> GetClients()
-            {
-                return this.Clients;
-            }
+        {
+            return this.Clients;
+        }
 
         public string GetName()
-            {
-                return this.Name;
-            }
+        {
+            return this.Name;
+        }
 
 
         // don't use Loadxxx to generate
@@ -98,77 +98,12 @@ namespace Entreprise
         {
             this.Clients.Add(client.ToString(), client);
         }
+    }
+}
 
         //method
 
 
-        //pay 
+        //Loop
 
-        public void PayAll()
-        {
-            this.PayDirectors();
-            this.PayManagers();
-            this.PayConsultants();
-        }
 
-        public void PayDirectors()
-        {
-            foreach(Director director in this.Directors.Values)
-            {
-                director.GetPaid(150000);
-            }
-        }
-
-        public void PayManagers()
-        {
-            foreach(Manager manager in this.Managers.Values)
-            {
-                manager.GetPaid(60000 + 500 * manager.NumberConsultant());
-            }
-        }
-
-        public void PayConsultants()
-        {
-            foreach (Manager manager in this.Managers.Values)
-            {
-                foreach(Consultant consultant in manager.GetConsultants().Values)
-                {
-                    int salary = 35000;
-                    int managerbonus = 600 + 5 * manager.NumberConsultant();
-                    List<Mission> missionlist = manager.GetConsultantagenda()[consultant.ToString()];
-                    int bounty = 0;
-                    foreach(Mission mission in missionlist)
-                    {
-                        if(mission.GetStart().Year == this.Date.Year)
-                        {
-                            int penalty = -10 * mission.GetDuration();
-                            if(mission.GetDuration() > 25)
-                            {
-                                penalty = -250;
-                            }
-                            bounty += 250 - penalty;
-                        }
-                    }
-                    consultant.GetPaid(salary + managerbonus + bounty);
-                }
-            }
-        }
-        
-            //Loop
-
-        public void NextDay()
-        {
-            DateTime yesterday = this.Date;
-            this.Date.AddDays(1);
-            foreach(Consultant consultant in Consultants.Values)
-            {
-                consultant.CheckIsBusy(this.Date);
-            }
-            if(yesterday.Year != this.Date.Year)
-            {
-                this.PayAll();
-            }
-        }
-    }
-
-}

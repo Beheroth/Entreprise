@@ -26,7 +26,7 @@ namespace Entreprise
             foreach (Consultant consultant in Consultants.Values)
             {
                 Console.WriteLine("[MAN] in boucle consultant");
-                txt += String.Format("{0}   :   {1}", consultant.ToString(), consultant.GetMissionagenda()[0].GetClient().ToString());
+                txt += String.Format("{0}   :   {1}", consultant.ToString(), consultant.GetMission().GetClient().ToString());
                 txt += Environment.NewLine;
             }
             Console.WriteLine("[MAN] txt generate");
@@ -92,10 +92,6 @@ namespace Entreprise
             return this.Consultants.Count;
         }
 
-        public void SendConsultantToMission(Consultant consultant, Mission mission)
-        {
-            consultant.AddMission(mission);
-        }
     }
 }
 
