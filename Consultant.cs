@@ -8,12 +8,11 @@ namespace Entreprise
 {
     class Consultant : Person
     {
-        private List<Mission> Missionagenda;
+        private Mission Mission;
         private List<Mission> MissionHistory; //Sorted List of All the missions the consultant has done or is doing.
 
         public Consultant(String firstname, String lastname, int personnalaccount) : base(firstname, lastname, personnalaccount)
         {
-            this.Missionagenda = new List<Mission>();
             this.MissionHistory = new List<Mission>();
         }
 
@@ -21,10 +20,9 @@ namespace Entreprise
 
                 //BEWARE OF SHALLOW COPIES!
 
-        public List<Mission> GetMissionagenda()
+        public Mission GetMission()
         {
-            Console.WriteLine("[CONS]" + this.Missionagenda.Count);
-            return this.Missionagenda;
+            return this.Mission;
         }
 
         public List<Mission> GetMissionHistory()
@@ -32,10 +30,9 @@ namespace Entreprise
             return this.MissionHistory;
         }
 
-        public void SetMissionagenda(List<Mission> var)
+        public void SetMission(Mission mission)
         {
-            //assert that foo is of length 1
-            this.Missionagenda = var;
+            this.Mission = mission;
         }
 
         public void SetMissionHistory(List<Mission> var)
@@ -47,21 +44,8 @@ namespace Entreprise
 
         //methods
 
-        public void AddMission(Mission mission)
-        {
-            //assert that mission agenda is empty
-            this.Missionagenda.Add(mission);
-            //assert that mission is not overlapping with any mission in missionhistory
-            this.MissionHistory.Add(mission);
-            this.MissionHistory.Sort();
-        }
 
-        public void ClearMissionagenda()
-        {
-            this.Missionagenda.Clear();
-        }
-
-        public List<Mission> GetMissionsFromDate(DateTime date)
+        public List<Mission> GetMissionsFromYear(DateTime date)
         {
             List<Mission> ans = new List<Mission>();
             foreach(Mission mission in this.GetMissionHistory())
@@ -72,22 +56,6 @@ namespace Entreprise
                 }
             }
             return ans;
-        }
-        public void CheckIsBusy(DateTime date)
-            //updates the Missionagenda list if the given date is after the end of the mission in missionagenda
-        {
-            bool ans = false;
-            if(this.Missionagenda.Count == 1)
-            {
-                if(this.Missionagenda[0].GetEnd().CompareTo(date) < 0)
-                {
-                    ans = true;
-                }
-            }
-            if(ans == false)
-            {
-                this.ClearMissionagenda();
-            }
         }
     }
 }

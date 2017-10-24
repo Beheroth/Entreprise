@@ -51,31 +51,34 @@ namespace Entreprise
             {
                 foreach (Consultant consultant in manager.GetConsultants().Values)
                 {
-                    int bonus = 0;
-                    foreach(Mission mission in consultant.GetMissionsFromDate(date))
+                    int bonus = (60000 + 500 * manager.NumberConsultant()) / 100;
+                    foreach(Mission mission in consultant.GetMissionsFromYear(date))
                     {
-                        int bounty = 0;
-                        if(mission.GetDuration() < 25)
+                        int bounty = 250;
+                        Console.WriteLine("GENE SAL CON: " + mission.GetClient().GetType());
+                        if(mission.GetClient().GetType() is Entreprise)
                         {
-                            bounty = 250 - 10 * mission.GetDuration();
+                            bounty = -10*mission.GetDuration();
                         }
                         bonus += bounty;
                     }
+
                     report += String.Format("   - {0} {1} - {2} €\r",
                         consultant.GetFirstname(),
                         consultant.GetLastname(),
-                        30000 + (60000 + 500 * manager.NumberConsultant()) / 100 + bonus);
+                        30000 + bonus);
                 }
             }
             return report + "\r";
         }
 
-        public string GenerateReport(Entreprise entreprise, DateTime date)
+        public void GenerateReport(Entreprise entreprise, DateTime date)
         {
+            File FDReport = new File("Financial Report - " + this.ToString() + date.ToString() + ".txt");
             string report = String.Format("- Relevé des salaires au sein de {0} - {1}\r \r", entreprise.GetName(), date.Year);
             report += this.GenerateDirectorsSalary(entreprise, date) + this.GenerateManagersSalary(entreprise, date) + this.GenerateConsultantsSalary(entreprise, date);
             Console.Write(report);
-            return report;
+            FDReport.SaveFile(report);
         }
     }
 }
