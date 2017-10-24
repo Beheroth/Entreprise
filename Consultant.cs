@@ -60,6 +60,18 @@ namespace Entreprise
             this.Missionagenda.Clear();
         }
 
+        public List<Mission> GetMissionsFromDate(DateTime date)
+        {
+            List<Mission> ans = new List<Mission>();
+            foreach(Mission mission in this.GetMissionHistory())
+            {
+                if(mission.GetEnd().Year == date.Year)
+                {
+                    ans.Add(mission);
+                }
+            }
+            return ans;
+        }
         public void CheckIsBusy(DateTime date)
             //updates the Missionagenda list if the given date is after the end of the mission in missionagenda
         {
