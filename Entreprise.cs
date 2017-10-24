@@ -28,29 +28,29 @@ namespace Entreprise
         // getter-setter
 
         public Dictionary<string, Director> GetDirectors()
-            {
-                return this.Directors;
-            }
+        {
+            return this.Directors;
+        }
 
         public Dictionary<string, Manager> GetManagers()
-            {
-                return this.Managers;
-            }
-        
+        {
+            return this.Managers;
+        }
+
         public Dictionary<string, Consultant> GetConsultants()
-            {
-                return this.Consultants;
-            }
-        
+        {
+            return this.Consultants;
+        }
+
         public Dictionary<string, Client> GetClients()
-            {
-                return this.Clients;
-            }
+        {
+            return this.Clients;
+        }
 
         public string GetName()
-            {
-                return this.Name;
-            }
+        {
+            return this.Name;
+        }
 
 
         // don't use Loadxxx to generate
@@ -98,9 +98,12 @@ namespace Entreprise
         {
             this.Clients.Add(client.ToString(), client);
         }
+    }
+}
 
         //method
 
-    }
 
-}
+        //Loop
+
+
