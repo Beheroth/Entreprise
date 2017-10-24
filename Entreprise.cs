@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entreprise
 {
-    class Entreprise
+    class Entreprise : IClient
     {
         private string Name;
         private Dictionary<string, Director> Directors;
