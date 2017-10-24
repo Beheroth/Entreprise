@@ -23,7 +23,7 @@ namespace Entreprise
             String txt = "";
             foreach (Consultant consultant in Consultants.Values)
             {
-                txt += consultant.ToString() + "    :   " + consultant.GetMissionagenda()[0].GetClient().ToString();
+                txt += String.Format("{0}   :   {1}", consultant.ToString(), consultant.GetMissionagenda()[0].GetClient().ToString());
                 txt += Environment.NewLine;
             }
             ManagerReport.SaveFile(txt);
