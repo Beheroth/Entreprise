@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entreprise
 {
-    class HumanResourcesDirector : Director, IGenerateReport
+    class HumanResourcesDirector : Director
     {
         public HumanResourcesDirector(String firstname, String lastname, int personnalaccount) :
             base(firstname, lastname, personnalaccount)
