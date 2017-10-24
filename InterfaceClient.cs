@@ -8,17 +8,28 @@ namespace Entreprise
 {
     class InterfaceClient
     {
-        Entreprise Entreprise;
+        public Entreprise Entreprise;
+        private String Username;
 
         public InterfaceClient(Entreprise entreprise)
         {
             this.Entreprise = entreprise;
         }
 
-        public void Start()
+        public void Run()
         {
             Console.WriteLine(this.StringStart());
+            this.LogIn();
             this.End();
+        }
+
+        private void LogIn()
+        {
+            Console.WriteLine("Firstname :");
+            String firstname = Console.ReadLine();
+            Console.WriteLine("Lastname :");
+            String lastname = Console.ReadLine();
+            this.Username = firstname + lastname;
         }
 
         private void End()
@@ -37,7 +48,6 @@ namespace Entreprise
             result += "Welcome to " + this.Entreprise.GetName() + " Entreprise";
             result += Environment.NewLine;
             result += Environment.NewLine;
-            result += this.StringMenu();
             return result;
         }
 
