@@ -40,7 +40,7 @@ namespace Entreprise
         public void SetMissionHistory(List<Mission> var)
         {
             this.MissionHistory = var;
-            this.MissionHistory.Sort();
+            this.MissionHistory.OrderBy(x => x.GetStart());
         }
 
 
