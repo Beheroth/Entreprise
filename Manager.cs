@@ -18,7 +18,7 @@ namespace Entreprise
 
         public void GenerateReport()
         {
-            String name = "ManagerReport" + "-" + this.ToString();
+            String name = "ManagerReport" + " - " + this.ToString() + ".txt";
             File ManagerReport = new File(name);
             String txt = "";
             foreach (Consultant consultant in Consultants.Values)
