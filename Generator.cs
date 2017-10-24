@@ -13,7 +13,7 @@ namespace Entreprise
             
         }
 
-
+        // Generate all the info to initialise the entreprise
         public Entreprise GenerateAll(String entreprise, DateTime date)
         {
             this.Entreprise = new Entreprise(entreprise, date);
@@ -23,8 +23,10 @@ namespace Entreprise
             this.GenerateMission("MissionFile.txt");
             return this.Entreprise;
         }
-        // Method to generate the lists of the entreprise
 
+        // Method to generate the instances of the entreprise
+
+        //generate all the employees
         private void GenerateEmploye(String filename)
         {
             File employefile = new File(filename);
@@ -83,12 +85,14 @@ namespace Entreprise
             // Extract each line of the file
             foreach (string c in missionfile.Load)
             {
+                // Use the lines who match the pattern of the regex
                 Regex rg = new Regex(@"^(?<consultant>[a-zA-Z]+)/(?<datein>+)/(?<dateout>+)/(?<client>\w+)$");
                 Match m = rg.Match(c);
                 if (m.Success)
                 {
-                    Consultant consultant = this.Entreprise.GetConsultants[m.Groups["consultant"].Value];
-                    Client client = this.Entreprise.GetClients[m.Groups["client"].Value];
+                    // take the consultant and the client in the lists of the entreprise
+                    Consultant consultant = this.Entreprise.GetConsultants()[m.Groups["consultant"].Value];
+                    Client client = this.Entreprise.GetClients()[m.Groups["client"].Value];
 
 
                     // Generate time in
@@ -106,7 +110,7 @@ namespace Entreprise
                     Out.AddDays(Int32.Parse(dateout[2]));
 
                     // Generate Mission
-                    Mission mission = new Mission(In, Out, client); // Problem to create object mission ??
+                    Mission mission = new Mission(In, Out, client);
 
                     if ( consultantagenda.ContainsKey(m.Groups["consultant"].Value)) // if key in dictionary 
                     {
@@ -119,14 +123,12 @@ namespace Entreprise
                         consultantagenda[m.Groups["consultant"].Value] = listmission;
                     }
 
-                    foreach(String manager in this.Entreprise.GetManagers.Keys)
+                    // Putt Mission in the database 
+                    foreach(String consultantname in this.Entreprise.GetConsultants().Keys)
                     {
                         foreach(string consu in consultantagenda.Keys)
                         {
-                            if (this.Entreprise.GetManagers[manager].GetConsultants().ContainsKey(consu))
-                            {
-                                this.Entreprise.GetManagers[manager].AddConsultantmissions(consultantagenda[consu], consu);
-                            }
+                            this.Entreprise.GetConsultants()[consultantname].SetMissionHistory(consultantagenda[consu]);
                         }
                     }
                 }
@@ -146,11 +148,12 @@ namespace Entreprise
                     String managername = m.Groups["manager"].Value;
                     try
                     {
-                        Manager manager = this.Entreprise.GetManagers[managername];
+                        // find the Consultant and putt it in his Manager
+                        Manager manager = this.Entreprise.GetManagers()[managername];
                         string[] consultants = m.Groups["consultantslist"].Value.Split('-');
                         foreach (String consultantname in consultants)
                         {
-                            Consultant consultant = this.Entreprise.GetConsultants[consultantname];
+                            Consultant consultant = this.Entreprise.GetConsultants()[consultantname];
                             manager.AddConsultant(consultant);
                         }
                     }
