@@ -71,8 +71,8 @@ namespace Entreprise
             List<String> listchoice = new List<String>
             {
                 "Print a ManagerReport",
-                "Print a FinacialDirectorReport",
-                "Print a HumanRessourceReport"
+                "Print a FinancialDirectorReport",
+                "Print a HumanResourceReport"
             };
 
             String result = "";
@@ -91,6 +91,7 @@ namespace Entreprise
             {
                 try
                 {
+                    Console.WriteLine("Welcome Manager");
                     this.Entreprise.GetManagers()[this.Username].GenerateReport();
                 }
                 catch
@@ -103,7 +104,27 @@ namespace Entreprise
             {
                 try
                 {
-                    this.Entreprise.GetDirectors()[this.Username].GenerateReport(this.Entreprise);
+                    Console.WriteLine("Welcome Director");
+                    
+                    if (this.Entreprise.GetDirectors()[this.Username] is FinancialDirector)
+                    {
+                        Console.WriteLine("[IC] welcome FinancialDirector");
+                        FinancialDirector dir = (FinancialDirector)this.Entreprise.GetDirectors()[this.Username];
+                        dir.GenerateReport(this.Entreprise);
+                    }
+                    else
+                    {
+                        if (this.Entreprise.GetDirectors()[this.Username] is HumanResourcesDirector)
+                        {
+                            Console.WriteLine("[IC] welcome HumanResourcesDirector");
+                            HumanResourcesDirector dir = (HumanResourcesDirector)this.Entreprise.GetDirectors()[this.Username];
+                            dir.GenerateReport(this.Entreprise);
+                        }
+                        else
+                        {
+
+                        }
+                    }
                 }
                 catch
                 {
