@@ -12,10 +12,6 @@ namespace Entreprise
         {
             
         }
-        public void GenerateReport(Entreprise entreprise)
-        {
-            
-        }
 
         public void GetPaid()
         {
