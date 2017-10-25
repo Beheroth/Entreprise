@@ -68,7 +68,7 @@ namespace Entreprise
                         FinancialDirector director = new FinancialDirector(m.Groups["firstname"].Value, m.Groups["lastname"].Value, pa);
                         this.Entreprise.AddDirector(director);
                     }
-                    if (m.Groups["job"].Value == "humanresourcesdirector")
+                    if (m.Groups["job"].Value == "humanresourcedirector")
                     {
                         int pa = Int32.Parse(m.Groups["personalaccount"].Value);
                         HumanResourcesDirector director = new HumanResourcesDirector(m.Groups["firstname"].Value, m.Groups["lastname"].Value, pa);
