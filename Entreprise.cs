@@ -27,6 +27,11 @@ namespace Entreprise
 
         // getter-setter
 
+        public DateTime GetDate()
+        {
+            return this.Date;
+        }
+
         public Dictionary<string, Director> GetDirectors()
         {
             return this.Directors;
