@@ -72,11 +72,12 @@ namespace Entreprise
             return report + "\r";
         }
 
-        public void GenerateReport(Entreprise entreprise, DateTime date)
+        public void GenerateReport(Entreprise entreprise)
         {
-            File FDReport = new File("Financial Report - " + this.ToString() + date.ToString() + ".txt");
-            string report = String.Format("- Relevé des salaires au sein de {0} - {1}\r \r", entreprise.GetName(), date.Year);
-            report += this.GenerateDirectorsSalary(entreprise, date) + this.GenerateManagersSalary(entreprise, date) + this.GenerateConsultantsSalary(entreprise, date);
+            Console.WriteLine("[FD] FD will generate report");
+            File FDReport = new File("Financial Report - " + this.ToString() + entreprise.GetDate().ToString() + ".txt");
+            string report = String.Format("- Relevé des salaires au sein de {0} - {1}\r \r", entreprise.GetName(), entreprise.GetDate().Year);
+            report += this.GenerateDirectorsSalary(entreprise, entreprise.GetDate()) + this.GenerateManagersSalary(entreprise, entreprise.GetDate()) + this.GenerateConsultantsSalary(entreprise, entreprise.GetDate());
             Console.Write(report);
             FDReport.SaveFile(report);
         }
