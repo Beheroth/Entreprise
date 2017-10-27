@@ -57,5 +57,27 @@ namespace Entreprise
             }
             return ans;
         }
+
+        /*
+        public void CompleteMission(Entreprise entreprise)
+        {
+            this.MissionHistory.OrderBy(x => x.GetStart());
+            DateTime date1 = new DateTime(2017, 01, 01);
+            foreach(Mission mission in MissionHistory)
+            {
+                if (date1 <= mission.GetStart())
+                {
+                    Mission missionentreprise = new Mission(date1, mission.GetStart().AddDays(-1), entreprise);
+                    this.MissionHistory.Add(missionentreprise);
+                    this.MissionHistory.OrderBy(x => x.GetStart());
+                    date1 = mission.GetEnd().AddDays(1);
+                }
+                else
+                {
+                    date1 = mission.GetEnd().AddDays(1);
+                }
+            }
+        }
+        */
     }
 }
