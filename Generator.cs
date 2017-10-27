@@ -10,7 +10,7 @@ namespace Entreprise
 
         public Generator()
         {
-            
+
         }
 
         // Generate all the info to initialise the entreprise
@@ -24,7 +24,7 @@ namespace Entreprise
             Console.Write("Managers : " + this.Entreprise.GetManagers().Count + Environment.NewLine);
             Console.Write("Directors : " + this.Entreprise.GetDirectors().Count + Environment.NewLine);
             this.LinkConsultantandManager("LinkFile.txt");
-            Console.Write("[GEN] Consultant link to Manager" + Environment.NewLine);
+            Console.Write("[GEN] Consultants linked to Manager" + Environment.NewLine);
             this.GenerateClient("ClientFile.txt");
             Console.Write("[GEN] Client Loaded" + Environment.NewLine);
             Console.Write("Clients : " + this.Entreprise.GetClients().Count + Environment.NewLine);
@@ -68,7 +68,7 @@ namespace Entreprise
                         FinancialDirector director = new FinancialDirector(m.Groups["firstname"].Value, m.Groups["lastname"].Value, pa);
                         this.Entreprise.AddDirector(director);
                     }
-                    if (m.Groups["job"].Value == "humanresourcesdirector")
+                    if (m.Groups["job"].Value == "humanresourcedirector")
                     {
                         int pa = Int32.Parse(m.Groups["personalaccount"].Value);
                         HumanResourcesDirector director = new HumanResourcesDirector(m.Groups["firstname"].Value, m.Groups["lastname"].Value, pa);
@@ -94,7 +94,7 @@ namespace Entreprise
             // Extract each line of the file
             foreach (string c in missionfile.Load)
             {
-                // Use the lines who match the pattern of the regex
+                // Use the lines that match the pattern of the regex
                 Regex rg = new Regex(@"^(?<consultant>[a-zA-Z]+)/(?<datein>[0-9]{4}\-[0-9]{2}\-[0-9]{2})/(?<dateout>[0-9]{4}\-[0-9]{2}\-[0-9]{2})/(?<client>\w+)");
                 Match m = rg.Match(c);
                 if (m.Success)
@@ -102,7 +102,6 @@ namespace Entreprise
                     // take the consultant and the client in the lists of the entreprise
                     Consultant consultant = this.Entreprise.GetConsultants()[m.Groups["consultant"].Value];
                     Client client = this.Entreprise.GetClients()[m.Groups["client"].Value];
-
 
                     // Generate time in
                     string[] datein = m.Groups["datein"].Value.Split('-'); // format date year-month-day
@@ -121,7 +120,7 @@ namespace Entreprise
                     // Generate Mission
                     Mission mission = new Mission(In, Out, client);
 
-                    if ( consultantagenda.ContainsKey(m.Groups["consultant"].Value)) // if key in dictionary 
+                    if (consultantagenda.ContainsKey(m.Groups["consultant"].Value)) // if key in dictionary 
                     {
                         consultantagenda[m.Groups["consultant"].Value].Add(mission);
                     }
@@ -132,10 +131,10 @@ namespace Entreprise
                         consultantagenda[m.Groups["consultant"].Value] = listmission;
                     }
 
-                    // Putt Mission in the database 
-                    foreach(String consultantname in this.Entreprise.GetConsultants().Keys)
+                    // Put Mission in the database 
+                    foreach (String consultantname in this.Entreprise.GetConsultants().Keys)
                     {
-                        foreach(string consu in consultantagenda.Keys)
+                        foreach (string consu in consultantagenda.Keys)
                         {
                             this.Entreprise.GetConsultants()[consultantname].SetMissionHistory(consultantagenda[consu]);
                         }

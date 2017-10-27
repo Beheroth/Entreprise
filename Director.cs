@@ -12,7 +12,7 @@ namespace Entreprise
         {
             
         }
-        public void GenerateReport(Entreprise entreprise)
+        public virtual void GenerateReport(Entreprise entreprise, DateTime date)
         {
             
         }

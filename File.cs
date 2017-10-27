@@ -16,13 +16,13 @@ namespace Entreprise
         {
             this.FileName = filename;
             // All files are in the folder Data
-            this.Path = @"Data\" + this.FileName;
+            this.Path = @"Data\" + this.FileName;;
         }
 
         private string[] LoadFile()
         {
             string[] lines = System.IO.File.ReadAllLines(this.Path);
-            Console.WriteLine("[File] File Loaded");
+            Console.WriteLine("[FILE] - File Loaded");
             return lines;
         }
 

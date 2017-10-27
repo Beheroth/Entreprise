@@ -17,6 +17,16 @@ namespace Entreprise
 
         }
 
+        public override void GenerateReport(Entreprise entreprise, DateTime date)
+        {
+            Console.WriteLine("[FD] Generating Report");
+            File FDReport = new File("Financial Report - " + this.ToString() + date.ToString() + ".txt");
+            string report = String.Format("- Relevé des salaires au sein de {0} - {1}\r \r", entreprise.GetName(), date.Year);
+            report += this.GenerateDirectorsSalary(entreprise, date) + this.GenerateManagersSalary(entreprise, date) + this.GenerateConsultantsSalary(entreprise, date);
+            Console.Write(report);
+            FDReport.SaveFile(report);
+        }
+
         private string GenerateDirectorsSalary(Entreprise entreprise, DateTime date)
         {
             string report = " - Directors: \r \r";
@@ -56,7 +66,7 @@ namespace Entreprise
                     {
                         int bounty = 250;
                         Console.WriteLine("GENE SAL CON: " + mission.GetClient().GetType());
-                        if(mission.GetClient().GetType() is Entreprise)
+                        if(mission.GetClient() is Entreprise)
                         {
                             bounty = -10*mission.GetDuration();
                         }
@@ -72,13 +82,6 @@ namespace Entreprise
             return report + "\r";
         }
 
-        public void GenerateReport(Entreprise entreprise, DateTime date)
-        {
-            File FDReport = new File("Financial Report - " + this.ToString() + date.ToString() + ".txt");
-            string report = String.Format("- Relevé des salaires au sein de {0} - {1}\r \r", entreprise.GetName(), date.Year);
-            report += this.GenerateDirectorsSalary(entreprise, date) + this.GenerateManagersSalary(entreprise, date) + this.GenerateConsultantsSalary(entreprise, date);
-            Console.Write(report);
-            FDReport.SaveFile(report);
-        }
+
     }
 }

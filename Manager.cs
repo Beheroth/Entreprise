@@ -18,20 +18,21 @@ namespace Entreprise
 
         public void GenerateReport()
         {
-            Console.WriteLine("[MAN] in generate report");
+            Console.WriteLine("[MAN] Generating Report");
             String name = "ManagerReport" + " - " + this.ToString() + ".txt";
             File ManagerReport = new File(name);
-            Console.WriteLine("[MAN] file generate");
-            String txt = "";
+            Console.WriteLine("[MAN] File created");
+            String txt = " ";
             foreach (Consultant consultant in Consultants.Values)
             {
-                Console.WriteLine("[MAN] in boucle consultant");
-                txt += String.Format("{0}   :   {1}", consultant.ToString(), consultant.GetMission().GetClient().ToString());
-                txt += Environment.NewLine;
+                Console.WriteLine("[MAN] Looping through Consultants" + consultant.GetMission().GetClient());
+                txt += String.Format("{0}   :   {1}" + Environment.NewLine, 
+                    consultant.ToString(), 
+                    consultant.GetMission().GetClient().ToString());
             }
-            Console.WriteLine("[MAN] txt generate");
+            Console.WriteLine("[MAN] txt generated");
             ManagerReport.SaveFile(txt);
-            Console.WriteLine("[MAN] file saved");
+            Console.WriteLine(String.Format("[MAN] File saved as {0}", name));
         }
 
         //Getter - Setter
