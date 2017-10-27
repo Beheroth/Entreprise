@@ -12,10 +12,12 @@ namespace Entreprise
         {
             
         }
+
         public virtual void GenerateReport(Entreprise entreprise, DateTime date)
         {
             
         }
+
 
         public void GetPaid()
         {

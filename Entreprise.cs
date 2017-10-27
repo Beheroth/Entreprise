@@ -57,11 +57,6 @@ namespace Entreprise
             return this.Name;
         }
 
-        public DateTime GetDate()
-        {
-            return this.Date;
-        }
-
 
         // don't use Loadxxx to generate
 
